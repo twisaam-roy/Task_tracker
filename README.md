@@ -39,6 +39,19 @@ Instead, it will copy all the configuration files and the transitive dependencie
 
 You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
 
+### `npm install json-server`
+
+It is used to install json-server for dummy server requests and db.
+
+### `json-server --watch db.json --port 5000`
+to provide a port number and db json file for the application from package.json file
+
+
+### `npm run start`
+
+Start the json server after installation and providing the port number and db file for server.
+
+
 ## Learn More
 
 You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
