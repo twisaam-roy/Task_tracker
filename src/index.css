@@ -110,3 +110,10 @@ footer {
   margin-top: 30px;
   text-align: center;
 }
+
+.edit-btn {
+  align-items: right;
+  justify-content: right;
+  margin-left: right;
+  align-self: right;
+}

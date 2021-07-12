@@ -2,14 +2,20 @@ import React from 'react';
 import Header from './Components/Header';
 import Tasks from './Components/Tasks';
 import AddTask from './Components/AddTask';
+import EditTask from './Components/EditTask';
 import { useState, useEffect } from 'react';
 import Footer from './Components/Footer';
 import About from './Components/About';
 import { BrowserRouter as Router, Route } from 'react-router-dom'
+import Task from './Components/Task';
 const App = () => {
     let [showAddTask, setShowAddTask] = useState(false);
+    let [showEditTask, setShowEditTask] = useState(false);
 
     let [tasks, setTasks] = useState<any[]>([])
+
+    let [dataForEditTask, setEditTask] = useState()
+
 
     useEffect(() => {
         let getTasks = async () => {
@@ -82,26 +88,46 @@ const App = () => {
         setTasks(tasks.map((task) => task.id === id ? { ...task, reminder: data.reminder } : task))
     }
 
-    //Edit a task
+    //show a task
 
-    let editTask = async (id: number) => {
-        let toggleTask = await fetchTaskById(id);
-        let updateTask = { ...toggleTask, reminder: !toggleTask.reminder }
+    let showTask = async (task: any) => {
+        //console.log(task)
+        
+        if (task) {
+            setShowEditTask(true)
+            setEditTask(task)
+        }
+        else {
+            alert("task not selected")
+        }
 
-        let res = await fetch(`http://localhost:5000/tasks/${id}`, {
+
+    }
+
+    //Edit Task by id
+    let editTask = async (task: any) => {
+        //console.log(task)
+         let updateTaskById = await fetchTaskById(task.jobId);
+         //console.log(updateTaskById)
+         let setUpdateTaskById = { ...task, reminder: task.editReminder, text:task.editText, day: task.editDay}
+        // console.log(setUpdateTaskById)
+        let res = await fetch(`http://localhost:5000/tasks/${task.jobId}`, {
             method: 'PUT',
             "headers": {
                 'Content-Type': 'application/json'
             },
-            body: JSON.stringify(updateTask)
+            body: JSON.stringify(setUpdateTaskById)
 
         })
 
         let data = await res.json()
+        console.log(data)
 
-        //console.log("reminder task",id);
-        setTasks(tasks.map((task) => task.id === id ? { ...task, reminder: data.reminder } : task))
+         setTasks(tasks.map((task) => task.id === task.jobId ? { ...task,data} : task))
     }
+
+
+
     return (
         <Router>
             <div className='container'>
@@ -110,7 +136,8 @@ const App = () => {
                 <Route path='/' exact render={(props: any) => (
                     <>
                         {showAddTask && <AddTask onAdd={addTask} />}
-                        {tasks.length > 0 ? <Tasks tasks={tasks} onDelete={deleteTask} onToggle={toggleReminder} onEdit = {editTask}/> : "No Tasks To Show"}
+                        {tasks.length > 0 ? <Tasks tasks={tasks} onDelete={deleteTask} onToggle={toggleReminder} onEdit={showTask} /> : "No Tasks To Show"}
+                        {showEditTask && <EditTask onEdit={editTask} updateTask={dataForEditTask} showEditTaskForm = {true}/>}
                     </>
                 )} />
                 <Route path="/About" component={About} />
