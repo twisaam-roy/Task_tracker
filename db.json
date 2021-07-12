@@ -1,16 +1,38 @@
 {
   "tasks": [
     {
-      "id": 2,
-      "text": "DAO sync up",
-      "day": "Tuesday",
-      "reminder": true
+      "reminder": true,
+      "text": "Training",
+      "day": "Everyday",
+      "id": 1
+    },
+    {
+      "editText": "DAO ",
+      "editDay": "Not",
+      "editReminder": false,
+      "jobId": 2,
+      "reminder": false,
+      "text": "DAO ",
+      "day": "Not",
+      "id": 2
     },
     {
       "id": 3,
-      "text": "DAO Open Bridge",
-      "day": "Wednesday",
-      "reminder": true
+      "reminder": false,
+      "text": "Meeting",
+      "day": "No reminder"
+    },
+    {
+      "text": "React",
+      "day": "Daily 12:00 pm",
+      "reminder": true,
+      "id": 4
+    },
+    {
+      "text": "React ",
+      "day": "6:30 pm",
+      "reminder": true,
+      "id": 5
     }
   ]
 }
