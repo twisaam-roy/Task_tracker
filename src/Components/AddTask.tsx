@@ -6,6 +6,7 @@ const AddTask = ({onAdd}:any) => {
     let [day, setDay] = useState('');
     let [reminder, setReminder] = useState(false);
 
+
     let onSubmit = (e:any) =>{
         e.preventDefault();
         if(!text){
@@ -16,7 +17,7 @@ const AddTask = ({onAdd}:any) => {
 
         setText('');
         setDay('');
-        setReminder(false);
+        setReminder(false)
 
     }
     return (
