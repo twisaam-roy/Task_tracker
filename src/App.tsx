@@ -82,26 +82,6 @@ const App = () => {
         setTasks(tasks.map((task) => task.id === id ? { ...task, reminder: data.reminder } : task))
     }
 
-    //Edit a task
-
-    let editTask = async (id: number) => {
-        let toggleTask = await fetchTaskById(id);
-        let updateTask = { ...toggleTask, reminder: !toggleTask.reminder }
-
-        let res = await fetch(`http://localhost:5000/tasks/${id}`, {
-            method: 'PUT',
-            "headers": {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify(updateTask)
-
-        })
-
-        let data = await res.json()
-
-        //console.log("reminder task",id);
-        setTasks(tasks.map((task) => task.id === id ? { ...task, reminder: data.reminder } : task))
-    }
     return (
         <Router>
             <div className='container'>
@@ -110,7 +90,7 @@ const App = () => {
                 <Route path='/' exact render={(props: any) => (
                     <>
                         {showAddTask && <AddTask onAdd={addTask} />}
-                        {tasks.length > 0 ? <Tasks tasks={tasks} onDelete={deleteTask} onToggle={toggleReminder} onEdit = {editTask}/> : "No Tasks To Show"}
+                        {tasks.length > 0 ? <Tasks tasks={tasks} onDelete={deleteTask} onToggle={toggleReminder} /> : "No Tasks To Show"}
                     </>
                 )} />
                 <Route path="/About" component={About} />
@@ -120,11 +100,6 @@ const App = () => {
     );
 }
 
-// class App extends React.Component{
-//   render() {
-//     return <h1>My App from class</h1>
-//   }
-// }
 
 export default App
 
